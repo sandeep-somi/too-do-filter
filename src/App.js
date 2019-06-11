@@ -28,24 +28,6 @@ function App () {
             )
           }}
         </Subscribe>
-        <Subscribe to={[TodosContainer]}>
-          {todos => {
-            const list = todos.getList();
-            console.log(todos, 'todos');
-
-            return (
-              <TodosWrapper>
-                <AddTodo onAddTodo={todos.createTodo} />
-                <FilterWrapper>
-                  <Checkbox name="All" value="" />
-                  <Checkbox name="Active" value="ACTIVE" />
-                  <Checkbox name="Completed" value="COMPLETED" />
-                </FilterWrapper>
-                <TodoList items={list} toggleComplete={todos.toggleComplete} />
-              </TodosWrapper>
-            )
-          }}
-        </Subscribe>
       </Wrapper>
     </Provider>
   )
@@ -54,6 +36,8 @@ function App () {
 const FilterWrapper = styled.div`
   display: flex;
   justify-content: space-around;
+  padding: 10px 18px;
+  width: 100%;
 `
 
 const Wrapper = styled.div`

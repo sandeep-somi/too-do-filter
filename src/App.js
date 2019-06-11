@@ -1,12 +1,10 @@
 import React from 'react'
 import { Provider, Subscribe } from 'unstated'
-
 import styled from 'styled-components'
-
 import TodosContainer from './store'
+import { TodoList, AddTodo } from './components';
+import { Checkbox } from './components/common';
 
-import TodoList from './components/TodoList'
-import AddTodo from './components/AddTodo'
 
 function App () {
   return (
@@ -14,10 +12,35 @@ function App () {
       <Wrapper>
         <Subscribe to={[TodosContainer]}>
           {todos => {
-            const list = todos.getList()
+            const list = todos.getList();
+            console.log(todos, 'todos');
+            
             return (
               <TodosWrapper>
                 <AddTodo onAddTodo={todos.createTodo} />
+                <FilterWrapper>
+                  <Checkbox name="All" value="" />
+                  <Checkbox name="Active" value="ACTIVE" />
+                  <Checkbox name="Completed" value="COMPLETED" />
+                </FilterWrapper>
+                <TodoList items={list} toggleComplete={todos.toggleComplete} />
+              </TodosWrapper>
+            )
+          }}
+        </Subscribe>
+        <Subscribe to={[TodosContainer]}>
+          {todos => {
+            const list = todos.getList();
+            console.log(todos, 'todos');
+
+            return (
+              <TodosWrapper>
+                <AddTodo onAddTodo={todos.createTodo} />
+                <FilterWrapper>
+                  <Checkbox name="All" value="" />
+                  <Checkbox name="Active" value="ACTIVE" />
+                  <Checkbox name="Completed" value="COMPLETED" />
+                </FilterWrapper>
                 <TodoList items={list} toggleComplete={todos.toggleComplete} />
               </TodosWrapper>
             )
@@ -27,6 +50,11 @@ function App () {
     </Provider>
   )
 }
+
+const FilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
 
 const Wrapper = styled.div`
   background-color: #282c34;

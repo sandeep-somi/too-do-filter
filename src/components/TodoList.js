@@ -1,8 +1,6 @@
 import React from 'react'
-
 import styled from 'styled-components'
-
-import TodoItem from './TodoItem'
+import { TodoItem } from './'
 
 const TodoList = ({ items, toggleComplete }) => (
   <Wrapper>
